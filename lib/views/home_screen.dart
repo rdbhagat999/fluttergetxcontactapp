@@ -102,12 +102,12 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              // padding: EdgeInsets.symmetric(horizontal: 5),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
                 ),
                 boxShadow: [
                   BoxShadow(
@@ -132,26 +132,35 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
 
                     QuerySnapshot querySnapshot = stream.data;
 
-                    return ListView.separated(
-                      padding: EdgeInsets.only(top: 10, bottom: 20),
-                      physics: BouncingScrollPhysics(),
-                      itemCount: querySnapshot.size,
-                      separatorBuilder: (context, index) => Divider(),
-                      itemBuilder: (context, index) {
-                        final item = querySnapshot.docs[index];
-                        // print(item.id);
-                        final Contacts contactItem =
-                            Contacts.fromQueryDocumentSnapshot(
-                                queryDocSnapshot: item);
+                    return ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
+                      child: Container(
+                        child: ListView.separated(
+                          padding: EdgeInsets.only(top: 10, bottom: 20),
+                          physics: BouncingScrollPhysics(),
+                          itemCount: querySnapshot.size,
+                          separatorBuilder: (context, index) => Divider(),
+                          itemBuilder: (context, index) {
+                            final item = querySnapshot.docs[index];
+                            // print(item.id);
+                            final Contacts contactItem =
+                                Contacts.fromQueryDocumentSnapshot(
+                                    queryDocSnapshot: item);
 
-                        return SlidableWidget(
-                          uniqueId: '${contactItem.name ?? ''}',
-                          child: buildListTile(contactItem),
-                          onDismissed: (action) {
-                            dismissSlidableItem(context, contactItem, action);
+                            return SlidableWidget(
+                              uniqueId: '${contactItem.name ?? ''}',
+                              child: buildListTile(contactItem),
+                              onDismissed: (action) {
+                                dismissSlidableItem(
+                                    context, contactItem, action);
+                              },
+                            );
                           },
-                        );
-                      },
+                        ),
+                      ),
                     );
                   },
                 ),
@@ -184,22 +193,30 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
       case SlidableAction.delete:
         printLog('Contact has been deleted');
         LoadingIndicatorWidget.showLoadingIndicator();
-        await _uploadCtrl.deleteFile(
-            uid: this._authCtrl.user.uid, photoId: item.photoId);
+        if (item.photoId.isNotEmpty) {
+          await _uploadCtrl.deleteFile(
+              uid: this._authCtrl.user.uid, photoId: item.photoId);
+        }
         _contactCtrl.deleteContact(contact: item);
         break;
     }
   }
 
   Widget buildListTile(Contacts item) => ListTile(
+        // tileColor: Colors.black12,
         contentPadding: EdgeInsets.symmetric(
-          horizontal: 16,
+          horizontal: 28,
           vertical: 8,
         ),
         leading: CircleAvatar(
           backgroundColor: Colors.blue,
           radius: 28,
-          backgroundImage: NetworkImage(item?.photoUrl ?? ''),
+          backgroundImage: NetworkImage(item?.photoUrl),
+          onBackgroundImageError: (dynamic e, StackTrace trace) {
+            return Image(
+              image: AssetImage('assets/images/user.png'),
+            );
+          },
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttergetxcontactapp/controllers/controllers.dart';
@@ -53,7 +51,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
         photoMetadata = await taskSnap.ref.getMetadata();
       }
 
-      print(photoMetadata.customMetadata);
+      print(photoMetadata?.customMetadata);
 
       _contactCtrl.saveContact(
         userId: _authCtrl.user.uid.trim(),
@@ -61,7 +59,9 @@ class _AddContactScreenState extends State<AddContactScreen> {
         email: _emailInputCtrl.text.trim(),
         primaryPhone: _primaryPhoneInputCtrl.text.trim(),
         secondaryPhone: _secondaryPhoneInputCtrl.text.trim(),
-        photoId: photoMetadata?.customMetadata['photoId'] ?? '',
+        photoId: (photoMetadata != null)
+            ? photoMetadata?.customMetadata['photoId']
+            : '',
         photoUrl: downloadURL ?? '',
       );
     }
