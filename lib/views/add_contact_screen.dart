@@ -212,7 +212,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                           label: Text('Pick Image from gallery'),
                         ),
                         SizedBox(
-                          height: 10.0,
+                          height: 5.0,
                         ),
                         FlatButton(
                           onPressed: () => handleFormSubmit(context),
@@ -233,9 +233,6 @@ class _AddContactScreenState extends State<AddContactScreen> {
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
                         ),
                       ],
                     ),
