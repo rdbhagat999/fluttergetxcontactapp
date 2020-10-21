@@ -234,6 +234,9 @@ class _AddContactScreenState extends State<AddContactScreen> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
                       ],
                     ),
                   ),

@@ -33,7 +33,46 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
         },
         child: Icon(Icons.person_add),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Obx(
+                () => AutoSizeTextWidget(
+                  text: "${_authCtrl?.user?.displayName ?? 'Guest'}",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.message),
+              title: AutoSizeTextWidget(text: 'Messages'),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: AutoSizeTextWidget(text: 'Profile'),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: AutoSizeTextWidget(text: 'Settings'),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: AutoSizeTextWidget(text: 'Logout'),
+              onTap: () {
+                _authCtrl.signOutUser();
+              },
+            ),
+          ],
+        ),
+      ),
       body: Column(
         children: [
           Container(
