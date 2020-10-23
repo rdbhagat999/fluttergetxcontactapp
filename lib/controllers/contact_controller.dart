@@ -12,8 +12,8 @@ class ContactController extends GetxController with PrintLogMixin {
   RxInt get contactListCount => _contactListCount;
   void setContactListCount(int val) => _contactListCount.value = val;
 
-  AuthController _authController = Get.find();
-  ContactService _contactService = ContactService();
+  final AuthController _authController = Get.find();
+  final ContactService _contactService = ContactService();
 
   @override
   void onInit() {
@@ -80,7 +80,7 @@ class ContactController extends GetxController with PrintLogMixin {
         email: email,
         primaryPhone: primaryPhone,
         secondaryPhone: secondaryPhone,
-        photoUrl: photoUrl,
+        // photoUrl: photoUrl,
       );
 
       await _contactService.updateContact(_contact);

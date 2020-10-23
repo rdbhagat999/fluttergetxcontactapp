@@ -7,14 +7,8 @@ import 'package:fluttergetxcontactapp/widgets/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddContactScreen extends StatefulWidget with PrintLogMixin {
+class AddContactScreen extends StatelessWidget with PrintLogMixin {
   static const pageId = 'add_contact_screen';
-
-  @override
-  _AddContactScreenState createState() => _AddContactScreenState();
-}
-
-class _AddContactScreenState extends State<AddContactScreen> {
   final AuthController _authCtrl = Get.find();
   final ContactController _contactCtrl = Get.find();
   final UploadController _uploadCtrl = Get.find();
@@ -126,14 +120,9 @@ class _AddContactScreenState extends State<AddContactScreen> {
                                 ),
                               ),
                               Obx(
-                                () => AutoSizeTextWidget(
-                                  text:
-                                      '${_contactCtrl?.contactListCount?.value ?? "0"} Contacts',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                () => ContactsCountWidget(
+                                  contactsCount:
+                                      _contactCtrl?.contactListCount?.value,
                                 ),
                               ),
                             ],

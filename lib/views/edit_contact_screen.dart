@@ -121,14 +121,9 @@ class _EditContactScreenState extends State<EditContactScreen> {
                                 ),
                               ),
                               Obx(
-                                () => AutoSizeTextWidget(
-                                  text:
-                                      '${_contactCtrl?.contactListCount?.value ?? "0"} Contacts',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                () => ContactsCountWidget(
+                                  contactsCount:
+                                      _contactCtrl?.contactListCount?.value,
                                 ),
                               ),
                             ],

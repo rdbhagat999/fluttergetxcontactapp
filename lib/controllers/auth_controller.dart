@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttergetxcontactapp/helpers/helpers.dart';
 import 'package:fluttergetxcontactapp/mixins/mixins.dart';
@@ -32,7 +34,7 @@ class AuthController extends GetxController with PrintLogMixin {
       await _userService.createNewUser(user);
 
       setUser(_fireAuth.currentUser);
-      Get.offAllNamed(HomeScreen.pageId);
+      Get.offNamed(HomeScreen.pageId);
     } catch (e) {
       printLog(e);
       Helpers.showSnackbar(title: 'Error', message: e.message);

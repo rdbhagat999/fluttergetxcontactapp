@@ -45,7 +45,7 @@ class ContactService with PrintLogMixin {
       "primaryPhone": contact.primaryPhone,
       "secondaryPhone": contact.secondaryPhone,
       "email": contact.email,
-      "photoUrl": contact?.photoUrl,
+      // "photoUrl": contact?.photoUrl,
       "photoId": contact?.photoId,
     });
     return contact;
