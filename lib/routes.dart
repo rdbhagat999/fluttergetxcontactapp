@@ -1,3 +1,4 @@
+import 'package:fluttergetxcontactapp/bindings/home_screen_bindings.dart';
 import 'package:fluttergetxcontactapp/views/views.dart';
 import 'package:get/get.dart';
 
@@ -12,12 +13,10 @@ final List<GetPage> appPages = [
   GetPage(
     name: LoginScreen.pageId,
     page: () => LoginScreen(),
-    binding: LoginScreenBindings(),
   ),
   GetPage(
     name: RegisterScreen.pageId,
     page: () => RegisterScreen(),
-    binding: RegisterScreenBindings(),
   ),
   GetPage(
     name: HomeScreen.pageId,
@@ -32,7 +31,6 @@ final List<GetPage> appPages = [
   GetPage(
     name: EditContactScreen.pageId,
     page: () => EditContactScreen(),
-    binding: EditContactScreenBindings(),
   ),
   GetPage(
     name: TestScreen.pageId,

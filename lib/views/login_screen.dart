@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget with PrintLogMixin {
                   child: Column(
                     children: [
                       TypewriterWidget(
-                        textList: ['Flutter Contacts'],
+                        textList: ['Flutter Contacts'.tr],
                         textStyle:
                             TextStyle(fontSize: 30.0, color: Colors.black54),
                         onTap: () {
@@ -64,7 +64,7 @@ class LoginScreen extends StatelessWidget with PrintLogMixin {
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
                         decoration: buildFormInputDecoration(
-                            hintText: 'Enter email', icon: Icons.email),
+                            hintText: 'Enter email'.tr, icon: Icons.email),
                         controller: _emailInputCtrl,
                         validator: (email) => (!email.trim().contains('@'))
                             ? 'Please enter a valid email address'
@@ -75,7 +75,7 @@ class LoginScreen extends StatelessWidget with PrintLogMixin {
                       ),
                       TextFormField(
                         decoration: buildFormInputDecoration(
-                            hintText: 'Enter password', icon: Icons.lock),
+                            hintText: 'Enter password'.tr, icon: Icons.lock),
                         controller: _passwordInputCtrl,
                         validator: (password) => (password.trim().length < 6)
                             ? 'Password must be at least 6 characters long'
@@ -94,7 +94,7 @@ class LoginScreen extends StatelessWidget with PrintLogMixin {
                           decoration: buildFlatButtonConatinerDecoration(
                               color: Theme.of(context).primaryColor),
                           child: AutoSizeTextWidget(
-                            text: 'Sign in',
+                            text: 'Sign in'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
@@ -119,7 +119,7 @@ class LoginScreen extends StatelessWidget with PrintLogMixin {
                           decoration: buildFlatButtonConatinerDecoration(
                               color: Colors.red[700]),
                           child: AutoSizeTextWidget(
-                            text: 'Signin with Google',
+                            text: 'Signin with Google'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
@@ -142,7 +142,7 @@ class LoginScreen extends StatelessWidget with PrintLogMixin {
                           padding: EdgeInsets.all(5.0),
                           alignment: Alignment.center,
                           child: AutoSizeTextWidget(
-                            text: "Don't have an account? Click here.",
+                            text: "Don't have an account? Click here.".tr,
                             style: TextStyle(
                               color: Colors.black54,
                               fontSize: 14.0,

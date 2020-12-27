@@ -105,7 +105,7 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
                         child: Column(
                           children: [
                             AutoSizeTextWidget(
-                              text: 'Contacts',
+                              text: 'Contacts'.tr,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 36,

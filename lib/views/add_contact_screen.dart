@@ -112,7 +112,7 @@ class AddContactScreen extends StatelessWidget with PrintLogMixin {
                           child: Column(
                             children: [
                               AutoSizeTextWidget(
-                                text: 'Add Contact',
+                                text: 'Add Contact'.tr,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 36,
@@ -163,29 +163,31 @@ class AddContactScreen extends StatelessWidget with PrintLogMixin {
                         TextFormField(
                           keyboardType: TextInputType.text,
                           decoration: buildFormInputDecoration(
-                              hintText: 'Enter name', icon: Icons.account_box),
+                              hintText: 'Enter name'.tr,
+                              icon: Icons.account_box),
                           controller: _nameInputCtrl,
                           validator: (name) => (name.trim().isEmpty)
-                              ? 'Please enter a valid name'
+                              ? 'Please enter a valid name'.tr
                               : null,
                         ),
                         TextFormField(
                           keyboardType: TextInputType.emailAddress,
                           decoration: buildFormInputDecoration(
-                              hintText: 'Enter email', icon: Icons.email),
+                              hintText: 'Enter email'.tr, icon: Icons.email),
                           controller: _emailInputCtrl,
                         ),
                         TextFormField(
                           keyboardType: TextInputType.phone,
                           decoration: buildFormInputDecoration(
-                              hintText: 'Enter primary phone',
+                              hintText: 'Enter primary phone'.tr,
                               icon: Icons.phone),
                           controller: _primaryPhoneInputCtrl,
                         ),
                         TextFormField(
                           keyboardType: TextInputType.phone,
                           decoration: buildFormInputDecoration(
-                              hintText: 'Enter alt phone', icon: Icons.phone),
+                              hintText: 'Enter alt phone'.tr,
+                              icon: Icons.phone),
                           controller: _secondaryPhoneInputCtrl,
                         ),
                         Obx(() => (_uploadCtrl.imageFile.value != null)
@@ -198,7 +200,7 @@ class AddContactScreen extends StatelessWidget with PrintLogMixin {
                             _uploadCtrl.pickImage(source: ImageSource.gallery);
                           },
                           icon: const Icon(Icons.photo_library),
-                          label: Text('Pick Image from gallery'),
+                          label: Text('Pick Image from gallery'.tr),
                         ),
                         SizedBox(
                           height: 5.0,
@@ -212,7 +214,7 @@ class AddContactScreen extends StatelessWidget with PrintLogMixin {
                             decoration: buildFlatButtonConatinerDecoration(
                                 color: Theme.of(context).primaryColor),
                             child: AutoSizeTextWidget(
-                              text: 'Save',
+                              text: 'Save'.tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,

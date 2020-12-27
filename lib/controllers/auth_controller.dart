@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttergetxcontactapp/helpers/helpers.dart';
 import 'package:fluttergetxcontactapp/mixins/mixins.dart';
@@ -43,10 +41,11 @@ class AuthController extends GetxController with PrintLogMixin {
 
   Future<void> register(String email, String password) async {
     try {
+      await _googleSignIn.signOut();
       UserCredential _authResult =
           await _authService.registerUser(email.trim(), password.trim());
 
-      printLog(_authResult);
+      // printLog(_authResult);
 
       if (_authResult != null && _authResult.user != null) {
         _createUser(_authResult);
@@ -81,6 +80,7 @@ class AuthController extends GetxController with PrintLogMixin {
 
   Future<void> login(String email, String password) async {
     try {
+      await _googleSignIn.signOut();
       UserCredential _authResult =
           await _authService.loginUser(email.trim(), password.trim());
 

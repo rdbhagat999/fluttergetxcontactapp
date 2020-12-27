@@ -8,7 +8,6 @@ class RootScreenBindings extends Bindings {
     // so that the same instance is available on different screens when we call Get.find() method
     Get.put<AuthController>(AuthController(), permanent: true);
     Get.put<ContactController>(ContactController(), permanent: true);
-
-    Get.lazyPut<UploadController>(() => UploadController(), fenix: false);
+    Get.lazyPut<UploadController>(() => UploadController(), fenix: true);
   }
 }
