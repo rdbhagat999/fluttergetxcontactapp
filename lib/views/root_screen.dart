@@ -7,15 +7,15 @@ class RootScreen extends StatelessWidget {
   static const pageId = 'root_screen';
 
   // calling Get.find method to initialize Controller instances
-  final AuthController _authCtrl = Get.find();
-  final ContactController _contactCtrl = Get.find();
-  final UploadController _uploadCtrl = Get.find();
+  // final AuthController _authCtrl = Get.find();
+  // final ContactController _contactCtrl = Get.find();
+  // final UploadController _uploadCtrl = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return GetX(
       initState: (_) =>
-          Get.lazyPut<AuthController>(() => AuthController(), fenix: true),
+          Get.put<AuthController>(AuthController(), permanent: true),
       builder: (_) {
         if (Get.find<AuthController>().user?.uid != null) {
           return HomeScreen();

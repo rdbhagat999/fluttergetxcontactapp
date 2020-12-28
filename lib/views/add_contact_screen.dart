@@ -9,9 +9,6 @@ import 'package:image_picker/image_picker.dart';
 
 class AddContactScreen extends StatelessWidget with PrintLogMixin {
   static const pageId = 'add_contact_screen';
-  final AuthController _authCtrl = Get.find();
-  final ContactController _contactCtrl = Get.find();
-  final UploadController _uploadCtrl = Get.find();
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -36,19 +33,19 @@ class AddContactScreen extends StatelessWidget with PrintLogMixin {
       dynamic downloadURL;
       StorageMetadata photoMetadata;
 
-      if (_uploadCtrl.imageFile.value != null) {
-        taskSnap = await _uploadCtrl.uploadFile(
-          file: _uploadCtrl.imageFile.value,
-          uid: _authCtrl.user.uid.trim(),
+      if (Get.find<UploadController>().imageFile.value != null) {
+        taskSnap = await Get.find<UploadController>().uploadFile(
+          file: Get.find<UploadController>().imageFile.value,
+          uid: Get.find<AuthController>().user.uid.trim(),
         );
         downloadURL = await taskSnap.ref.getDownloadURL();
         photoMetadata = await taskSnap.ref.getMetadata();
       }
 
-      print(photoMetadata?.customMetadata);
+      // print(photoMetadata?.customMetadata);
 
-      _contactCtrl.saveContact(
-        userId: _authCtrl.user.uid.trim(),
+      Get.find<ContactController>().saveContact(
+        userId: Get.find<AuthController>().user.uid.trim(),
         name: _nameInputCtrl.text.trim(),
         email: _emailInputCtrl.text.trim(),
         primaryPhone: _primaryPhoneInputCtrl.text.trim(),
@@ -121,8 +118,9 @@ class AddContactScreen extends StatelessWidget with PrintLogMixin {
                               ),
                               Obx(
                                 () => ContactsCountWidget(
-                                  contactsCount:
-                                      _contactCtrl?.contactListCount?.value,
+                                  contactsCount: Get.find<ContactController>()
+                                      ?.contactListCount
+                                      ?.value,
                                 ),
                               ),
                             ],
@@ -190,14 +188,17 @@ class AddContactScreen extends StatelessWidget with PrintLogMixin {
                               icon: Icons.phone),
                           controller: _secondaryPhoneInputCtrl,
                         ),
-                        Obx(() => (_uploadCtrl.imageFile.value != null)
-                            ? _uploadCtrl.previewImage()
-                            : SizedBox(
-                                height: 10.0,
-                              )),
+                        Obx(() =>
+                            (Get.find<UploadController>().imageFile.value !=
+                                    null)
+                                ? Get.find<UploadController>().previewImage()
+                                : SizedBox(
+                                    height: 10.0,
+                                  )),
                         FlatButton.icon(
                           onPressed: () {
-                            _uploadCtrl.pickImage(source: ImageSource.gallery);
+                            Get.find<UploadController>()
+                                .pickImage(source: ImageSource.gallery);
                           },
                           icon: const Icon(Icons.photo_library),
                           label: Text('Pick Image from gallery'.tr),

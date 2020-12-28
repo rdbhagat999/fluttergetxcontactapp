@@ -12,10 +12,6 @@ import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget with PrintLogMixin {
   static const pageId = 'home_screen';
 
-  final AuthController _authCtrl = Get.find();
-  final ContactController _contactCtrl = Get.find();
-  final UploadController _uploadCtrl = Get.find();
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -41,9 +37,9 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Obx(
-                () => AutoSizeTextWidget(
-                  text: "${_authCtrl?.user?.displayName ?? 'Guest'}",
+              child: GetX<AuthController>(
+                builder: (_) => AutoSizeTextWidget(
+                  text: "${_?.user?.displayName ?? 'Guest'}",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -67,7 +63,7 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
               leading: Icon(Icons.logout),
               title: AutoSizeTextWidget(text: 'Logout'),
               onTap: () {
-                _authCtrl.signOutUser();
+                Get.find<AuthController>().signOutUser();
               },
             ),
           ],
@@ -112,10 +108,9 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            Obx(
-                              () => ContactsCountWidget(
-                                contactsCount:
-                                    _contactCtrl?.contactListCount?.value,
+                            GetX<ContactController>(
+                              builder: (_) => ContactsCountWidget(
+                                contactsCount: _?.contactListCount?.value,
                               ),
                             ),
                           ],
@@ -152,9 +147,9 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
                   )
                 ],
               ),
-              child: Obx(
-                () => StreamBuilder<QuerySnapshot>(
-                  stream: _contactCtrl.fetchContacts(),
+              child: GetX<ContactController>(
+                builder: (_) => StreamBuilder<QuerySnapshot>(
+                  stream: Get.find<ContactController>().fetchContacts(),
                   builder: (context, stream) {
                     if (stream.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
@@ -227,11 +222,12 @@ class HomeScreen extends StatelessWidget with PrintLogMixin {
       case SlidableAction.delete:
         printLog('Contact has been deleted');
         LoadingIndicatorWidget.showLoadingIndicator();
+
         if (item.photoId.isNotEmpty) {
-          await _uploadCtrl.deleteFile(
-              uid: this._authCtrl.user.uid, photoId: item.photoId);
+          await Get.find<UploadController>().deleteFile(
+              uid: Get.find<AuthController>().user.uid, photoId: item.photoId);
         }
-        _contactCtrl.deleteContact(contact: item);
+        Get.find<ContactController>().deleteContact(contact: item);
         break;
     }
   }
